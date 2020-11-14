@@ -11,6 +11,8 @@
 		BF175333255FE93000A94A08 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF175332255FE93000A94A08 /* Quote.swift */; };
 		BF175342255FEAC200A94A08 /* CurrencyLayerListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF175341255FEAC200A94A08 /* CurrencyLayerListResponse.swift */; };
 		BF175348255FEE5E00A94A08 /* CurrencyLayerQuotesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF175347255FEE5E00A94A08 /* CurrencyLayerQuotesResponse.swift */; };
+		BF17534E25602EB300A94A08 /* QuoteCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF17534D25602EB300A94A08 /* QuoteCellViewModel.swift */; };
+		BF17535325602EC700A94A08 /* QuoteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF17535225602EC700A94A08 /* QuoteCellView.swift */; };
 		BFA9450A255E820400537367 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA94509255E820400537367 /* AppDelegate.swift */; };
 		BFA9450E255E820400537367 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA9450D255E820400537367 /* CurrencyViewController.swift */; };
 		BFA94513255E820500537367 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFA94512255E820500537367 /* Assets.xcassets */; };
@@ -44,6 +46,8 @@
 		BF175332255FE93000A94A08 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		BF175341255FEAC200A94A08 /* CurrencyLayerListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyLayerListResponse.swift; sourceTree = "<group>"; };
 		BF175347255FEE5E00A94A08 /* CurrencyLayerQuotesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyLayerQuotesResponse.swift; sourceTree = "<group>"; };
+		BF17534D25602EB300A94A08 /* QuoteCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCellViewModel.swift; sourceTree = "<group>"; };
+		BF17535225602EC700A94A08 /* QuoteCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCellView.swift; sourceTree = "<group>"; };
 		BFA94506255E820400537367 /* Convertly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convertly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFA94509255E820400537367 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFA9450D255E820400537367 /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +97,15 @@
 			path = CurrencyLayer;
 			sourceTree = "<group>";
 		};
+		BF17535125602EBB00A94A08 /* QuoteCellComponent */ = {
+			isa = PBXGroup;
+			children = (
+				BF17534D25602EB300A94A08 /* QuoteCellViewModel.swift */,
+				BF17535225602EC700A94A08 /* QuoteCellView.swift */,
+			);
+			path = QuoteCellComponent;
+			sourceTree = "<group>";
+		};
 		BFA944FD255E820400537367 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +133,7 @@
 				BF17533E255FEAAB00A94A08 /* CurrencyLayer */,
 				BFA94559255E852C00537367 /* Extensions */,
 				BFA94555255E836F00537367 /* CurrencyComponent */,
+				BF17535125602EBB00A94A08 /* QuoteCellComponent */,
 				BFA94512255E820500537367 /* Assets.xcassets */,
 				BF175325255FE2DE00A94A08 /* Colors.xcassets */,
 				BFA94514255E820500537367 /* LaunchScreen.storyboard */,
@@ -278,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFA94563255E857D00537367 /* UIViewExtension.swift in Sources */,
+				BF17535325602EC700A94A08 /* QuoteCellView.swift in Sources */,
 				BFA9457C255FD61600537367 /* Endpoint.swift in Sources */,
 				BF175333255FE93000A94A08 /* Quote.swift in Sources */,
 				BFA94568255E88EE00537367 /* UIColorExtension.swift in Sources */,
@@ -290,6 +305,7 @@
 				BFA9450A255E820400537367 /* AppDelegate.swift in Sources */,
 				BFA9458F255FE09100537367 /* NetworkingError.swift in Sources */,
 				BFA9455B255E853900537367 /* NSLayoutConstraintExtension.swift in Sources */,
+				BF17534E25602EB300A94A08 /* QuoteCellViewModel.swift in Sources */,
 				BF175342255FEAC200A94A08 /* CurrencyLayerListResponse.swift in Sources */,
 				BF175348255FEE5E00A94A08 /* CurrencyLayerQuotesResponse.swift in Sources */,
 			);

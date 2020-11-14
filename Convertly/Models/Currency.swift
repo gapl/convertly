@@ -5,7 +5,7 @@
 //  Created by Gasper Kolenc on 11/14/20.
 //
 
-struct Currency {
+struct Currency: Equatable {
     /// 3 letter currency code, i.e. `USD`.
     let code: String
 
@@ -20,5 +20,9 @@ struct Currency {
 
         self.code = code
         self.name = name
+    }
+
+    static func == (lhs: Currency, rhs: Currency) -> Bool {
+        return lhs.code == rhs.code
     }
 }

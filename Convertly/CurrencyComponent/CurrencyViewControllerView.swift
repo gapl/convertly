@@ -32,7 +32,7 @@ extension CurrencyViewController {
             amountTextField.font = .boldSystemFont(ofSize: 20)
             amountTextField.textAlignment = .right
             amountTextField.backgroundColor = .interactiveElementBackground
-            amountTextField.textColor = .interactiveElementTextColor
+            amountTextField.textColor = .interactiveElementText
             amountTextField.layer.cornerRadius = 4
             amountTextField.layer.masksToBounds = true
             amountTextField.keyboardType = .numberPad
@@ -44,7 +44,7 @@ extension CurrencyViewController {
             currencySelectionTextField.font = .boldSystemFont(ofSize: 20)
             currencySelectionTextField.textAlignment = .center
             currencySelectionTextField.backgroundColor = .interactiveElementBackground
-            currencySelectionTextField.textColor = .interactiveElementTextColor
+            currencySelectionTextField.textColor = .interactiveElementText
             currencySelectionTextField.layer.cornerRadius = 4
             currencySelectionTextField.layer.masksToBounds = true
             currencySelectionTextField.tintColor = .clear
@@ -62,7 +62,7 @@ extension CurrencyViewController {
             loadingLabel.text = "Loading..."
             loadingLabel.font = .systemFont(ofSize: 16)
             loadingLabel.textAlignment = .center
-            loadingLabel.textColor = .staticElementTextColor
+            loadingLabel.textColor = .staticElementText
         }
 
         private func configureLayout() {

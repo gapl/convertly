@@ -13,7 +13,7 @@ class CurrencyViewModel {
     private var subscriptions = Set<AnyCancellable>()
 
     /// Amount that should be converted from `selectedCurrency`.
-    var amountToConvert = CurrentValueSubject<Double, Never>(1000)
+    var amountToConvert = CurrentValueSubject<Double, Never>(1)
 
     /// Currently selected currency.
     var selectedCurrency = CurrentValueSubject<Currency?, Never>(nil)
@@ -37,6 +37,13 @@ class CurrencyViewModel {
 
         // Load list of currencies at init time.
         loadCurrencies()
+
+        // Load quotes when selection changes.
+        loadQuotes()
+    }
+
+    func cellViewModel(for indexPath: IndexPath) -> QuoteCellViewModel {
+        QuoteCellViewModel(quote: quoteList.value[indexPath.item], amount: amountToConvert.value)
     }
 }
 
@@ -72,6 +79,36 @@ private extension CurrencyViewModel {
 
                 // Default to selecting Yen
                 self?.selectedCurrency.send(currencies.first(where: { $0.code == "JPY" }) ?? currencies.first)
+            }
+            .store(in: &subscriptions)
+    }
+
+    func loadQuotes() {
+        selectedCurrency
+            // Debounce changes for 0.5 second.
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+
+            // Empty list of current quotes when selected currency changes.
+            .handleEvents(receiveOutput: { _ in self.quoteList.send([]) })
+
+            // Fetch rates for selected currency.
+            .compactMap { $0 }
+            .map { self.networkingClient.request(CurrencyLayerApi.exchangeRates(sourceCurrency: $0)) }
+
+            // We are interested in the latest subscription only.
+            .switchToLatest()
+
+            // Present fetched quotes.
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+
+                case .failure:
+                    self.errorRelay.send("There was an error fetching all available quotes. Please try again.")
+                }
+            } receiveValue: { (response: QuotesResponse) in
+                self.quoteList.send(response.quotes)
             }
             .store(in: &subscriptions)
     }

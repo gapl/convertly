@@ -12,15 +12,27 @@ extension UIColor {
         UIColor(named: "Background")
     }
 
-    static var interactiveElementTextColor: UIColor! {
-        UIColor(named: "InteractiveElementTextColor")
+    static var cellBackground: UIColor! {
+        UIColor(named: "CellBackground")
+    }
+
+    static var cellTitle: UIColor! {
+        UIColor(named: "CellTitle")
+    }
+
+    static var cellSubtitle: UIColor! {
+        UIColor(named: "CellSubtitle")
+    }
+
+    static var interactiveElementText: UIColor! {
+        UIColor(named: "InteractiveElementText")
     }
 
     static var interactiveElementBackground: UIColor! {
         UIColor(named: "InteractiveElementBackground")
     }
 
-    static var staticElementTextColor: UIColor! {
-        UIColor(named: "StaticElementTextColor")
+    static var staticElementText: UIColor! {
+        UIColor(named: "StaticElementText")
     }
 }

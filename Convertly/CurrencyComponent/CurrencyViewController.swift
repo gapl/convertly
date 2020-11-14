@@ -33,6 +33,11 @@ class CurrencyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Respond to collection view events
+        mainView.collectionView.delegate = self
+        mainView.collectionView.dataSource = self
+        mainView.collectionView.register(QuoteCellView.self, forCellWithReuseIdentifier: .reuseIdentifierQuote)
+
         bindActions()
         bindValues()
     }
@@ -44,10 +49,7 @@ class CurrencyViewController: UIViewController {
         mainView.currencySelectionDoneButton.target = self
         mainView.currencySelectionDoneButton.action = #selector(endEditing)
 
-        // Respond to collection view events
-        mainView.collectionView.delegate = self
-
-        // Update amount on keyboard taps
+        // Update amount to convert whenever text field text changes.
         NotificationCenter
             .default
             .publisher(for: UITextField.textDidChangeNotification, object: mainView.amountTextField)
@@ -97,13 +99,23 @@ class CurrencyViewController: UIViewController {
             .sink(receiveValue: { [weak self] _ in self?.mainView.currencySelectionPickerView.reloadAllComponents() })
             .store(in: &subscriptions)
 
+        // Show and hide loading label appropriately.
         viewModel
             .quoteList
+            .receive(on: DispatchQueue.main)
             .map { !$0.isEmpty }
             .sink(receiveValue: { [weak self] in self?.mainView.loadingLabel.isHidden = $0 })
             .store(in: &subscriptions)
+
+        // Reload quotes whenever they change.
+        Publishers
+            .Merge(viewModel.quoteList.map { _ in () }, viewModel.amountToConvert.map { _ in () })
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] in self?.mainView.collectionView.reloadData() })
+            .store(in: &subscriptions)
     }
 
+    /// Dismiss visible keyboard.
     @objc func endEditing() {
         view.endEditing(true)
     }
@@ -134,9 +146,65 @@ extension CurrencyViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 // MARK: - UICollectionView
-extension CurrencyViewController: UICollectionViewDelegate {
+extension CurrencyViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int) -> Int {
+
+        viewModel.quoteList.value.count
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: .reuseIdentifierQuote,
+                for: indexPath) as? QuoteCellView else {
+            fatalError("Unable to dequeue QuoteCellView.")
+        }
+
+        cell.configure(with: viewModel.cellViewModel(for: indexPath))
+        return cell
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let numberOfItemsInRow: CGFloat = 3
+        let availableWidth = collectionView.bounds.size.width - (numberOfItemsInRow - 1) * .itemSpacing
+        let itemWidth = floor(availableWidth / numberOfItemsInRow)
+        return CGSize(width: itemWidth, height: itemWidth)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+
+        .itemSpacing
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+
+        .itemSpacing
+    }
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         // Dismiss keyboard on scroll view drag.
         endEditing()
     }
+}
+
+private extension String {
+    static let reuseIdentifierQuote = "QuoteCell"
+}
+
+private extension CGFloat {
+    static let itemSpacing: CGFloat = 12
 }
