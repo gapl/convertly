@@ -42,13 +42,8 @@ class CurrencyViewModel {
 
 // MARK: - User actions
 extension CurrencyViewModel {
-    @objc func selectionButtonTapped() {
-        guard !currencyList.value.isEmpty else {
-            errorRelay.send("Currencies are not yet loaded, please wait a moment...")
-            return
-        }
-
-        print("TAP")
+    func selected(currency: Currency) {
+        selectedCurrency.send(currency)
     }
 }
 

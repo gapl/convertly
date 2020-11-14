@@ -40,9 +40,9 @@ class CurrencyViewController: UIViewController {
     private var sub: Any?
 
     private func bindActions() {
-        mainView
-            .currencySelectionButton
-            .addTarget(viewModel, action: #selector(CurrencyViewModel.selectionButtonTapped), for: .touchUpInside)
+        mainView.currencySelectionPickerView.delegate = self
+        mainView.currencySelectionDoneButton.target = self
+        mainView.currencySelectionDoneButton.action = #selector(endEditing)
     }
 
     private func bindValues() {
@@ -51,13 +51,14 @@ class CurrencyViewController: UIViewController {
         numberFormatter.maximumFractionDigits = 2
         numberFormatter.minimumFractionDigits = 2
 
+        // Update currency value.
         viewModel
             .currencyButtonText
-            .map { ($0, UIControl.State.normal) }
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: mainView.currencySelectionButton.setTitle)
+            .sink(receiveValue: { [weak self] in self?.mainView.currencySelectionTextField.text = $0 })
             .store(in: &subscriptions)
 
+        // Update text for converting amount.
         viewModel
             .amountToConvert
             .map { numberFormatter.string(from: $0 as NSNumber) }
@@ -65,6 +66,7 @@ class CurrencyViewController: UIViewController {
             .sink(receiveValue: { [weak self] in self?.mainView.textField.text = $0 })
             .store(in: &subscriptions)
 
+        // Present any errors in an alert view.
         viewModel
             .errorRelay
             .receive(on: DispatchQueue.main)
@@ -74,5 +76,39 @@ class CurrencyViewController: UIViewController {
                 self.present(alert, animated: true)
             }
             .store(in: &subscriptions)
+
+        // Reload picker view when available currencies update.
+        viewModel
+            .currencyList
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in self?.mainView.currencySelectionPickerView.reloadAllComponents() })
+            .store(in: &subscriptions)
+    }
+
+    @objc func endEditing() {
+        view.endEditing(true)
+    }
+}
+
+extension CurrencyViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        max(viewModel.currencyList.value.count, 1)
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        guard !viewModel.currencyList.value.isEmpty else {
+            return "Loading currencies..."
+        }
+
+        return viewModel.currencyList.value[row].name
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard !viewModel.currencyList.value.isEmpty else { return }
+        viewModel.selected(currency: viewModel.currencyList.value[row])
     }
 }

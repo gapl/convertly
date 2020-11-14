@@ -10,7 +10,9 @@ import UIKit
 extension CurrencyViewController {
     class View: UIView {
         let textField = UITextField()
-        let currencySelectionButton = UIButton(type: .custom)
+        let currencySelectionTextField = UITextField()
+        let currencySelectionPickerView = UIPickerView()
+        let currencySelectionDoneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
         init() {
@@ -38,27 +40,36 @@ extension CurrencyViewController {
             textField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0))
             textField.rightViewMode = .always
 
-            currencySelectionButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
-            currencySelectionButton.backgroundColor = .interactiveElementBackground
-            currencySelectionButton.setTitleColor(.interactiveElementTextColor, for: .normal)
-            currencySelectionButton.layer.cornerRadius = 4
-            currencySelectionButton.layer.masksToBounds = true
+            currencySelectionTextField.font = .boldSystemFont(ofSize: 20)
+            currencySelectionTextField.textAlignment = .center
+            currencySelectionTextField.backgroundColor = .interactiveElementBackground
+            currencySelectionTextField.textColor = .interactiveElementTextColor
+            currencySelectionTextField.layer.cornerRadius = 4
+            currencySelectionTextField.layer.masksToBounds = true
+            currencySelectionTextField.tintColor = .clear
+            currencySelectionTextField.inputView = currencySelectionPickerView
+
+            let toolBar = UIToolbar()
+            toolBar.sizeToFit()
+            let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            toolBar.setItems([flexibleSpace, currencySelectionDoneButton], animated: true)
+            currencySelectionTextField.inputAccessoryView = toolBar
 
             collectionView.backgroundColor = backgroundColor
             collectionView.alwaysBounceVertical = true
         }
 
         private func configureLayout() {
-            addSubview(currencySelectionButton)
-            currencySelectionButton.topAnchor.constraint(equalTo: safeTopAnchor, constant: 24).activate
-            currencySelectionButton.trailingAnchor.constraint(equalTo: safeTrailingAnchor, constant: -24).activate
-            currencySelectionButton.heightAnchor.constraint(equalToConstant: 50).activate
-            currencySelectionButton.widthAnchor.constraint(equalToConstant: 80).activate
+            addSubview(currencySelectionTextField)
+            currencySelectionTextField.topAnchor.constraint(equalTo: safeTopAnchor, constant: 24).activate
+            currencySelectionTextField.trailingAnchor.constraint(equalTo: safeTrailingAnchor, constant: -24).activate
+            currencySelectionTextField.heightAnchor.constraint(equalToConstant: 50).activate
+            currencySelectionTextField.widthAnchor.constraint(equalToConstant: 80).activate
 
             addSubview(textField)
             textField.topAnchor.constraint(equalTo: safeTopAnchor, constant: 24).activate
             textField.leadingAnchor.constraint(equalTo: safeLeadingAnchor, constant: 24).activate
-            textField.trailingAnchor.constraint(equalTo: currencySelectionButton.leadingAnchor, constant: -24).activate
+            textField.trailingAnchor.constraint(equalTo: currencySelectionTextField.leadingAnchor, constant: -24).activate
             textField.heightAnchor.constraint(equalToConstant: 50).activate
 
             addSubview(collectionView)
