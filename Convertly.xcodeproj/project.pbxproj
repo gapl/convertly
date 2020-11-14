@@ -87,14 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BF17533E255FEAAB00A94A08 /* CurrencyLayer */ = {
+		BF17533E255FEAAB00A94A08 /* CurrencyLayerApi */ = {
 			isa = PBXGroup;
 			children = (
 				BFA9456D255FD5A200537367 /* CurrencyLayerApi.swift */,
 				BF175341255FEAC200A94A08 /* CurrencyLayerListResponse.swift */,
 				BF175347255FEE5E00A94A08 /* CurrencyLayerQuotesResponse.swift */,
 			);
-			path = CurrencyLayer;
+			path = CurrencyLayerApi;
 			sourceTree = "<group>";
 		};
 		BF17535125602EBB00A94A08 /* QuoteCellComponent */ = {
@@ -130,7 +130,7 @@
 				BFA94509255E820400537367 /* AppDelegate.swift */,
 				BFA94585255FD8CC00537367 /* Models */,
 				BFA9456C255FD59400537367 /* Networking */,
-				BF17533E255FEAAB00A94A08 /* CurrencyLayer */,
+				BF17533E255FEAAB00A94A08 /* CurrencyLayerApi */,
 				BFA94559255E852C00537367 /* Extensions */,
 				BFA94555255E836F00537367 /* CurrencyComponent */,
 				BF17535125602EBB00A94A08 /* QuoteCellComponent */,

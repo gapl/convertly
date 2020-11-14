@@ -107,12 +107,11 @@ class CurrencyViewController: UIViewController {
             })
             .store(in: &subscriptions)
 
-        // Show and hide loading label appropriately.
+        // Set info label's text.
         viewModel
-            .quoteList
+            .infoText
             .receive(on: DispatchQueue.main)
-            .map { !$0.isEmpty }
-            .sink(receiveValue: { [weak self] in self?.mainView.loadingLabel.isHidden = $0 })
+            .sink(receiveValue: { [weak self] in self?.mainView.infoLabel.text = $0 })
             .store(in: &subscriptions)
 
         // Reload quotes whenever they change.

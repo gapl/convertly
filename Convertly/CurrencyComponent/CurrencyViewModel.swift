@@ -27,6 +27,9 @@ class CurrencyViewModel {
     /// Error relay that need to be presented to the user.
     var errorRelay = PassthroughSubject<String, Never>()
 
+    /// Info text to display.
+    var infoText = CurrentValueSubject<String?, Never>("Loading...")
+
     /// String value to bind to UI.
     var currencyButtonText: Publishers.Map<CurrentValueSubject<Currency?, Never>, String> {
         selectedCurrency.map { $0?.code ?? "..." }
@@ -70,15 +73,16 @@ private extension CurrencyViewModel {
                 case .finished:
                     break
 
-                case .failure:
+                case .failure(let error):
+                    debugPrint("[Error] Fetch error: \(error)")
                     self?.errorRelay.send("There was an error fetching all available currencies. Please restart the app.")
                 }
             } receiveValue: { [weak self] (response: ListResponse) in
                 let currencies = response.currencies
                 self?.currencyList.send(currencies)
 
-                // Default to selecting Yen
-                self?.selectedCurrency.send(currencies.first(where: { $0.code == "JPY" }) ?? currencies.first)
+                // Default to selecting USD, only supported one in the free payment plan.
+                self?.selectedCurrency.send(currencies.first(where: { $0.code == "USD" }) ?? currencies.first)
             }
             .store(in: &subscriptions)
     }
@@ -89,7 +93,10 @@ private extension CurrencyViewModel {
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
 
             // Empty list of current quotes when selected currency changes.
-            .handleEvents(receiveOutput: { _ in self.quoteList.send([]) })
+            .handleEvents(receiveOutput: { _ in
+                self.quoteList.send([])
+                self.infoText.send("Loading...")
+            })
 
             // Fetch rates for selected currency.
             .compactMap { $0 }
@@ -104,11 +111,27 @@ private extension CurrencyViewModel {
                 case .finished:
                     break
 
-                case .failure:
+                case .failure(let error):
+                    debugPrint("[Error] Fetch error: \(error)")
                     self.errorRelay.send("There was an error fetching all available quotes. Please try again.")
                 }
             } receiveValue: { (response: QuotesResponse) in
-                self.quoteList.send(response.quotes)
+                if let error = response.error, error.code == 105 {
+                    // Access Restricted - Your current Subscription Plan does not support Source Currency Switching.
+                    self.errorRelay.send("""
+                        You're currently using CurrencyLayer's Free plan. Only available currency conversion on the \
+                        Free plan is from USD. To see conversion rates from other currencies, please update access \
+                        key in `CurrencyLayerApi` file. You can still convert different USD amounts by changing \
+                        amount value and using currency USD.
+                        """)
+                    self.infoText.send("Something went wrong, try again.")
+                } else if let error = response.error {
+                    self.errorRelay.send(error.info)
+                    self.infoText.send("Something went wrong, try again.")
+                } else {
+                    self.infoText.send(nil)
+                    self.quoteList.send(response.quotes)
+                }
             }
             .store(in: &subscriptions)
     }

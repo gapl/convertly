@@ -14,7 +14,7 @@ extension CurrencyViewController {
         let currencySelectionPickerView = UIPickerView()
         let currencySelectionDoneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        let loadingLabel = UILabel()
+        let infoLabel = UILabel()
 
         init() {
             super.init(frame: .zero)
@@ -59,10 +59,9 @@ extension CurrencyViewController {
             collectionView.backgroundColor = backgroundColor
             collectionView.alwaysBounceVertical = true
 
-            loadingLabel.text = "Loading..."
-            loadingLabel.font = .systemFont(ofSize: 16)
-            loadingLabel.textAlignment = .center
-            loadingLabel.textColor = .staticElementText
+            infoLabel.font = .systemFont(ofSize: 16)
+            infoLabel.textAlignment = .center
+            infoLabel.textColor = .staticElementText
         }
 
         private func configureLayout() {
@@ -84,9 +83,9 @@ extension CurrencyViewController {
             collectionView.trailingAnchor.constraint(equalTo: safeTrailingAnchor, constant: -24).activate
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).activate
 
-            addSubview(loadingLabel)
-            loadingLabel.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).activate
-            loadingLabel.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor, constant: -24).activate
+            addSubview(infoLabel)
+            infoLabel.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).activate
+            infoLabel.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor, constant: -24).activate
         }
     }
 }
