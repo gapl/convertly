@@ -62,6 +62,7 @@ extension CurrencyViewController {
             infoLabel.font = .systemFont(ofSize: 16)
             infoLabel.textAlignment = .center
             infoLabel.textColor = .staticElementText
+            infoLabel.numberOfLines = 0
         }
 
         private func configureLayout() {
@@ -84,7 +85,8 @@ extension CurrencyViewController {
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).activate
 
             addSubview(infoLabel)
-            infoLabel.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).activate
+            infoLabel.leadingAnchor.constraint(equalTo: safeLeadingAnchor, constant: 36).activate
+            infoLabel.trailingAnchor.constraint(equalTo: safeTrailingAnchor, constant: -36).activate
             infoLabel.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor, constant: -24).activate
         }
     }

@@ -100,7 +100,7 @@ class CurrencyViewController: UIViewController {
                 self?.mainView.currencySelectionPickerView.reloadAllComponents()
 
                 // Set current currency as selected.
-                if let selectedCurrency = self?.viewModel.selectedCurrency.value,
+                if let selectedCurrency = self?.viewModel.selectedCurrency.value ?? Currency(code: "USD"),
                    let selectedIndex = self?.viewModel.currencyList.value.firstIndex(of: selectedCurrency) {
                     self?.mainView.currencySelectionPickerView.selectRow(selectedIndex, inComponent: 0, animated: false)
                 }

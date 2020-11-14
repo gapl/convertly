@@ -124,7 +124,10 @@ private extension CurrencyViewModel {
                         key in `CurrencyLayerApi` file. You can still convert different USD amounts by changing \
                         amount value and using currency USD.
                         """)
-                    self.infoText.send("Something went wrong, try again.")
+                    self.infoText.send("""
+                        Free plan only support conversions from USD. Please select United States Dollar from the \
+                        currency menu.
+                        """)
                 } else if let error = response.error {
                     self.errorRelay.send(error.info)
                     self.infoText.send("Something went wrong, try again.")
