@@ -96,6 +96,12 @@ class CurrencyViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in self?.mainView.currencySelectionPickerView.reloadAllComponents() })
             .store(in: &subscriptions)
+
+        viewModel
+            .quoteList
+            .map { !$0.isEmpty }
+            .sink(receiveValue: { [weak self] in self?.mainView.loadingLabel.isHidden = $0 })
+            .store(in: &subscriptions)
     }
 
     @objc func endEditing() {

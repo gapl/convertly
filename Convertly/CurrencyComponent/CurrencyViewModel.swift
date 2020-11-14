@@ -43,6 +43,7 @@ class CurrencyViewModel {
 // MARK: - User actions
 extension CurrencyViewModel {
     func selected(currency: Currency) {
+        guard selectedCurrency.value != currency else { return }
         selectedCurrency.send(currency)
     }
 
