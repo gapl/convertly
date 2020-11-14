@@ -44,7 +44,7 @@
 
 /* Begin PBXFileReference section */
 		BF175325255FE2DE00A94A08 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		BF17532A255FE64E00A94A08 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		BF17532A255FE64E00A94A08 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		BF175332255FE93000A94A08 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		BF175341255FEAC200A94A08 /* CurrencyLayerListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyLayerListResponse.swift; sourceTree = "<group>"; };
 		BF175347255FEE5E00A94A08 /* CurrencyLayerQuotesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyLayerQuotesResponse.swift; sourceTree = "<group>"; };
