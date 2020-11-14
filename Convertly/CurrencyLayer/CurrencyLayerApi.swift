@@ -14,7 +14,7 @@ enum CurrencyLayerApi {
 
 extension CurrencyLayerApi: Endpoint {
     var baseURL: String {
-        "https://api.currencylayer.com"
+        "http://api.currencylayer.com"
     }
 
     var path: String {
