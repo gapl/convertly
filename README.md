@@ -2,6 +2,8 @@
 
 Convertly is a currency converter app where user can select any given currency and any amount and see how that converts into other currencies.
 
+![alt text](https://github.com/gapl/convertly/raw/master/screenshots.jpg "Screenshots")
+
 ## Quickstart
 
 * This project uses [CurrencyLayer API](https://currencylayer.com/) with a free access key. To unlock full functionality, create an access key with a paid account and update the access key in `CurrencyLayerApi.accessKey`. Free plan limitations:
