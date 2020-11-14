@@ -2,7 +2,7 @@
 
 Convertly is a currency converter app where user can select any given currency and any amount and see how that converts into other currencies.
 
-![alt text](https://github.com/gapl/convertly/raw/master/screenshots.jpg "Screenshots")
+![alt text](https://raw.githubusercontent.com/gapl/convertly/main/screenshots.jpg "Screenshots")
 
 ## Quickstart
 
