@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: LaunchOptions?) -> Bool {
 
         // Prepare injectable resources
-        let networkingClient = NetworkingClient()
+        let networkingClient = NetworkingClient(cache: SimpleLocalCache())
 
         // Prepare main view controller
         let viewModel = CurrencyViewModel(networkingClient: networkingClient)

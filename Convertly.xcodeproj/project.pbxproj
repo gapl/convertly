@@ -13,6 +13,8 @@
 		BF175348255FEE5E00A94A08 /* CurrencyLayerQuotesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF175347255FEE5E00A94A08 /* CurrencyLayerQuotesResponse.swift */; };
 		BF17534E25602EB300A94A08 /* QuoteCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF17534D25602EB300A94A08 /* QuoteCellViewModel.swift */; };
 		BF17535325602EC700A94A08 /* QuoteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF17535225602EC700A94A08 /* QuoteCellView.swift */; };
+		BF4A24352560462300ECA7EE /* SimpleLocalCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4A24342560462300ECA7EE /* SimpleLocalCache.swift */; };
+		BF4A24392560466F00ECA7EE /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4A24382560466F00ECA7EE /* Cache.swift */; };
 		BFA9450A255E820400537367 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA94509255E820400537367 /* AppDelegate.swift */; };
 		BFA9450E255E820400537367 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA9450D255E820400537367 /* CurrencyViewController.swift */; };
 		BFA94513255E820500537367 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFA94512255E820500537367 /* Assets.xcassets */; };
@@ -48,6 +50,8 @@
 		BF175347255FEE5E00A94A08 /* CurrencyLayerQuotesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyLayerQuotesResponse.swift; sourceTree = "<group>"; };
 		BF17534D25602EB300A94A08 /* QuoteCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCellViewModel.swift; sourceTree = "<group>"; };
 		BF17535225602EC700A94A08 /* QuoteCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCellView.swift; sourceTree = "<group>"; };
+		BF4A24342560462300ECA7EE /* SimpleLocalCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLocalCache.swift; sourceTree = "<group>"; };
+		BF4A24382560466F00ECA7EE /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		BFA94506255E820400537367 /* Convertly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convertly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFA94509255E820400537367 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFA9450D255E820400537367 /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +182,8 @@
 				BFA94580255FD6C600537367 /* NetworkingClient.swift */,
 				BFA9457B255FD61600537367 /* Endpoint.swift */,
 				BFA9458E255FE09100537367 /* NetworkingError.swift */,
+				BF4A24342560462300ECA7EE /* SimpleLocalCache.swift */,
+				BF4A24382560466F00ECA7EE /* Cache.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -302,11 +308,13 @@
 				BFA94587255FD8D600537367 /* Currency.swift in Sources */,
 				BFA94581255FD6C600537367 /* NetworkingClient.swift in Sources */,
 				BFA9454C255E834B00537367 /* CurrencyViewModel.swift in Sources */,
+				BF4A24392560466F00ECA7EE /* Cache.swift in Sources */,
 				BFA9450A255E820400537367 /* AppDelegate.swift in Sources */,
 				BFA9458F255FE09100537367 /* NetworkingError.swift in Sources */,
 				BFA9455B255E853900537367 /* NSLayoutConstraintExtension.swift in Sources */,
 				BF17534E25602EB300A94A08 /* QuoteCellViewModel.swift in Sources */,
 				BF175342255FEAC200A94A08 /* CurrencyLayerListResponse.swift in Sources */,
+				BF4A24352560462300ECA7EE /* SimpleLocalCache.swift in Sources */,
 				BF175348255FEE5E00A94A08 /* CurrencyLayerQuotesResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

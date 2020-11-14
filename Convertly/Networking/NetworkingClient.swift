@@ -9,6 +9,12 @@ import Foundation
 import Combine
 
 struct NetworkingClient {
+    private let cache: Cache
+
+    init(cache: Cache) {
+        self.cache = cache
+    }
+
     /// Perform url request with given endpoint.
     ///
     /// - Parameter endpoint: Endpoint for which to perform a request.
@@ -34,12 +40,18 @@ struct NetworkingClient {
             return Fail(error: NetworkingError.malformedUrl).eraseToAnyPublisher()
         }
 
+        if let cachedResponse: T = cache.cached(for: url) {
+            // If we have a valid cached response, simply return that.
+            return Just(cachedResponse).setFailureType(to: NetworkingError.self).eraseToAnyPublisher()
+        }
+
         return URLSession
             .shared
             .dataTaskPublisher(for: url)
             .map { $0.data }
             .decode(type: T.self, decoder: JSONDecoder())
             .mapError { return NetworkingError.apiError(underlyingError: $0) }
+            .handleEvents(receiveOutput: { cache.cache(response: $0, for: url)})
             .eraseToAnyPublisher()
     }
 }
