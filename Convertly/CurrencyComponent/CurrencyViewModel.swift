@@ -45,6 +45,10 @@ extension CurrencyViewModel {
     func selected(currency: Currency) {
         selectedCurrency.send(currency)
     }
+
+    func updated(amount: Double) {
+        amountToConvert.send(amount / 100)
+    }
 }
 
 // MARK: - API requests

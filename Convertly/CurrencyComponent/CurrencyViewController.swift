@@ -43,6 +43,19 @@ class CurrencyViewController: UIViewController {
         mainView.currencySelectionPickerView.delegate = self
         mainView.currencySelectionDoneButton.target = self
         mainView.currencySelectionDoneButton.action = #selector(endEditing)
+
+        // Respond to collection view events
+        mainView.collectionView.delegate = self
+
+        // Update amount on keyboard taps
+        NotificationCenter
+            .default
+            .publisher(for: UITextField.textDidChangeNotification, object: mainView.amountTextField)
+            .compactMap { ($0.object as? UITextField)?.text }
+            .map { $0.components(separatedBy: CharacterSet.decimalDigits.inverted).joined() }
+            .compactMap { Double($0) }
+            .sink(receiveValue: viewModel.updated(amount:))
+            .store(in: &subscriptions)
     }
 
     private func bindValues() {
@@ -63,7 +76,7 @@ class CurrencyViewController: UIViewController {
             .amountToConvert
             .map { numberFormatter.string(from: $0 as NSNumber) }
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] in self?.mainView.textField.text = $0 })
+            .sink(receiveValue: { [weak self] in self?.mainView.amountTextField.text = $0 })
             .store(in: &subscriptions)
 
         // Present any errors in an alert view.
@@ -90,6 +103,7 @@ class CurrencyViewController: UIViewController {
     }
 }
 
+// MARK: - UIPicker
 extension CurrencyViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -110,5 +124,13 @@ extension CurrencyViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard !viewModel.currencyList.value.isEmpty else { return }
         viewModel.selected(currency: viewModel.currencyList.value[row])
+    }
+}
+
+// MARK: - UICollectionView
+extension CurrencyViewController: UICollectionViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        // Dismiss keyboard on scroll view drag.
+        endEditing()
     }
 }

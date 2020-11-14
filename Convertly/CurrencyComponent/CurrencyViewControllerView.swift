@@ -9,7 +9,7 @@ import UIKit
 
 extension CurrencyViewController {
     class View: UIView {
-        let textField = UITextField()
+        let amountTextField = UITextField()
         let currencySelectionTextField = UITextField()
         let currencySelectionPickerView = UIPickerView()
         let currencySelectionDoneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
@@ -28,17 +28,17 @@ extension CurrencyViewController {
         }
 
         private func configureSubviews() {
-            textField.font = .boldSystemFont(ofSize: 20)
-            textField.textAlignment = .right
-            textField.backgroundColor = .interactiveElementBackground
-            textField.textColor = .interactiveElementTextColor
-            textField.layer.cornerRadius = 4
-            textField.layer.masksToBounds = true
-            textField.keyboardType = .numberPad
-            textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0))
-            textField.leftViewMode = .always
-            textField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0))
-            textField.rightViewMode = .always
+            amountTextField.font = .boldSystemFont(ofSize: 20)
+            amountTextField.textAlignment = .right
+            amountTextField.backgroundColor = .interactiveElementBackground
+            amountTextField.textColor = .interactiveElementTextColor
+            amountTextField.layer.cornerRadius = 4
+            amountTextField.layer.masksToBounds = true
+            amountTextField.keyboardType = .numberPad
+            amountTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0))
+            amountTextField.leftViewMode = .always
+            amountTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0))
+            amountTextField.rightViewMode = .always
 
             currencySelectionTextField.font = .boldSystemFont(ofSize: 20)
             currencySelectionTextField.textAlignment = .center
@@ -66,14 +66,14 @@ extension CurrencyViewController {
             currencySelectionTextField.heightAnchor.constraint(equalToConstant: 50).activate
             currencySelectionTextField.widthAnchor.constraint(equalToConstant: 80).activate
 
-            addSubview(textField)
-            textField.topAnchor.constraint(equalTo: safeTopAnchor, constant: 24).activate
-            textField.leadingAnchor.constraint(equalTo: safeLeadingAnchor, constant: 24).activate
-            textField.trailingAnchor.constraint(equalTo: currencySelectionTextField.leadingAnchor, constant: -24).activate
-            textField.heightAnchor.constraint(equalToConstant: 50).activate
+            addSubview(amountTextField)
+            amountTextField.topAnchor.constraint(equalTo: safeTopAnchor, constant: 24).activate
+            amountTextField.leadingAnchor.constraint(equalTo: safeLeadingAnchor, constant: 24).activate
+            amountTextField.trailingAnchor.constraint(equalTo: currencySelectionTextField.leadingAnchor, constant: -24).activate
+            amountTextField.heightAnchor.constraint(equalToConstant: 50).activate
 
             addSubview(collectionView)
-            collectionView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 24).activate
+            collectionView.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 24).activate
             collectionView.leadingAnchor.constraint(equalTo: safeLeadingAnchor, constant: 24).activate
             collectionView.trailingAnchor.constraint(equalTo: safeTrailingAnchor, constant: -24).activate
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).activate
