@@ -16,8 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: LaunchOptions?) -> Bool {
 
+        // Prepare injectable resources
+        let networkingClient = NetworkingClient()
+
         // Prepare main view controller
-        let viewModel = CurrencyViewModel()
+        let viewModel = CurrencyViewModel(networkingClient: networkingClient)
         let viewController = CurrencyViewController(viewModel: viewModel)
 
         // Prepare window
