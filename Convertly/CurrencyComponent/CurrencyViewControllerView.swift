@@ -26,7 +26,6 @@ extension CurrencyViewController {
         }
 
         private func configureSubviews() {
-            textField.text = "1,000.00"
             textField.font = .boldSystemFont(ofSize: 20)
             textField.textAlignment = .right
             textField.backgroundColor = .interactiveElementBackground
@@ -39,7 +38,6 @@ extension CurrencyViewController {
             textField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0))
             textField.rightViewMode = .always
 
-            currencySelectionButton.setTitle("USD", for: .normal)
             currencySelectionButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
             currencySelectionButton.backgroundColor = .interactiveElementBackground
             currencySelectionButton.setTitleColor(.interactiveElementTextColor, for: .normal)
