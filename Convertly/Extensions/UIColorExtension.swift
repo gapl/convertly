@@ -19,4 +19,8 @@ extension UIColor {
     static var interactiveElementBackground: UIColor! {
         UIColor(named: "InteractiveElementBackground")
     }
+
+    static var staticElementTextColor: UIColor! {
+        UIColor(named: "StaticElementTextColor")
+    }
 }
