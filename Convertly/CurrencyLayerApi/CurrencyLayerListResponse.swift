@@ -23,7 +23,7 @@ struct ListResponse: Decodable {
             return
         }
 
-        let currencyMap = try container.decode([String:String].self, forKey: .currencies)
+        let currencyMap = try container.decode([String: String].self, forKey: .currencies)
         self.currencies = currencyMap
             .compactMap { Currency(code: $0, name: $1) }
             .sorted(by: { $0.name ?? $0.code < $1.name ?? $0.code })

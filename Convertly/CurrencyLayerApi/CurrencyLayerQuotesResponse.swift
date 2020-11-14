@@ -27,9 +27,9 @@ struct QuotesResponse: Decodable {
             error = try container.decode(Error.self, forKey: .error)
             return
         }
-        
+
         let sourceCode = try container.decode(String.self, forKey: .source)
-        let quoteMap = try container.decode([String:Double].self, forKey: .quotes)
+        let quoteMap = try container.decode([String: Double].self, forKey: .quotes)
         self.quotes = quoteMap
             .compactMap {
                 Quote(

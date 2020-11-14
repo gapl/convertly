@@ -75,7 +75,8 @@ extension CurrencyViewController {
             addSubview(amountTextField)
             amountTextField.topAnchor.constraint(equalTo: safeTopAnchor, constant: 24).activate
             amountTextField.leadingAnchor.constraint(equalTo: safeLeadingAnchor, constant: 24).activate
-            amountTextField.trailingAnchor.constraint(equalTo: currencySelectionTextField.leadingAnchor, constant: -24).activate
+            amountTextField.trailingAnchor
+                .constraint(equalTo: currencySelectionTextField.leadingAnchor, constant: -24).activate
             amountTextField.heightAnchor.constraint(equalToConstant: 50).activate
 
             addSubview(collectionView)

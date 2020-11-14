@@ -75,7 +75,7 @@ private extension CurrencyViewModel {
 
                 case .failure(let error):
                     debugPrint("[Error] Fetch error: \(error)")
-                    self?.errorRelay.send("There was an error fetching all available currencies. Please restart the app.")
+                    self?.errorRelay.send("There was an error fetching all currencies. Please restart the app.")
                 }
             } receiveValue: { [weak self] (response: ListResponse) in
                 let currencies = response.currencies

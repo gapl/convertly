@@ -12,6 +12,8 @@ class CurrencyViewController: UIViewController {
     private let viewModel: CurrencyViewModel
     private var subscriptions = Set<AnyCancellable>()
 
+    private let numberFormatter = NumberFormatter()
+
     private var mainView: CurrencyViewController.View {
         // swiftlint:disable:next force_cast
         return view as! CurrencyViewController.View
@@ -33,10 +35,15 @@ class CurrencyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Respond to collection view events
+        // Respond to collection view events.
         mainView.collectionView.delegate = self
         mainView.collectionView.dataSource = self
         mainView.collectionView.register(QuoteCellView.self, forCellWithReuseIdentifier: .reuseIdentifierQuote)
+
+        // Prepare number formatter.
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.minimumFractionDigits = 2
 
         bindActions()
         bindValues()
@@ -61,11 +68,6 @@ class CurrencyViewController: UIViewController {
     }
 
     private func bindValues() {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.maximumFractionDigits = 2
-        numberFormatter.minimumFractionDigits = 2
-
         // Update currency value.
         viewModel
             .currencyButtonText
@@ -76,7 +78,7 @@ class CurrencyViewController: UIViewController {
         // Update text for converting amount.
         viewModel
             .amountToConvert
-            .map { numberFormatter.string(from: $0 as NSNumber) }
+            .map { [weak self] in self?.numberFormatter.string(from: $0 as NSNumber) }
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] in self?.mainView.amountTextField.text = $0 })
             .store(in: &subscriptions)
@@ -153,7 +155,7 @@ extension CurrencyViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 // MARK: - UICollectionView
-extension CurrencyViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension CurrencyViewController: UICollectionHandler {
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int) -> Int {
@@ -215,3 +217,6 @@ private extension String {
 private extension CGFloat {
     static let itemSpacing: CGFloat = 12
 }
+
+typealias UICollectionHandler =  UICollectionViewDelegate & UICollectionViewDataSource
+    & UICollectionViewDelegateFlowLayout
